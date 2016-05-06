@@ -1,0 +1,29 @@
+<link rel="import" href="../../../../node_modules/@polymer/polymer/polymer.html">
+
+<link rel="import" href="../../../../node_modules/express-web-components/express-app.html">
+<link rel="import" href="../../../../node_modules/express-web-components/express-middleware.html">
+
+<dom-module id="dokku-test-app">
+    <template>
+        <express-app port="5000">
+            <express-middleware callback="[[handler]]"></express-middleware>
+        </express-app>
+    </template>
+
+    <script>
+        class AppComponent {
+            beforeReady() {
+                this.is = 'dokku-test-app';
+                this.port = process.env.PORT || 5000;
+            }
+
+            ready() {
+                this.handler = (req, res) => {
+                    res.send('it works');
+                };
+            }
+        }
+
+        Polymer(AppComponent);
+    </script>
+</dom-module>

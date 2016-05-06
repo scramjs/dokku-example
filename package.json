@@ -1,0 +1,21 @@
+{
+  "name": "dokku-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "xvfb-run electron node_modules/scram-engine/main.js app/server/index.html",
+    "start-dev": "electron node_modules/scram-engine/main.js app/server/index.html -d"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "6.0.0"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^1.2.5-npm-test.2",
+    "electron-prebuilt": "^0.37.8",
+    "express": "^4.13.4",
+    "express-web-components": "0.0.3",
+    "scram-engine": "0.0.4"
+  }
+}
