@@ -1,0 +1,20 @@
+{
+  "name": "dokku-test",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jordan Last <jordan.michael.last@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/scramjs/dokku-example",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  }
+}

@@ -6,7 +6,7 @@
 <dom-module id="dokku-test-app">
     <template>
         <express-app port="5000">
-            <express-middleware callback="[[handler]]"></express-middleware>
+            <express-middleware method="get" path="/" callback="[[handler]]"></express-middleware>
         </express-app>
     </template>
 
@@ -19,6 +19,7 @@
 
             ready() {
                 this.handler = (req, res) => {
+                    //console.log('request received: ' + new Date());
                     res.send('it works');
                 };
             }

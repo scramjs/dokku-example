@@ -1,0 +1,21 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="dokku-test-app">
+    <template>
+        <div>Client Dokku Example</div>
+    </template>
+
+    <script>
+        class AppComponent {
+            beforeReady() {
+                this.is = 'dokku-test-app';
+            }
+
+            ready() {
+
+            }
+        }
+
+        Polymer(AppComponent);
+    </script>
+</dom-module>
