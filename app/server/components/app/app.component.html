@@ -2,10 +2,12 @@
 
 <link rel="import" href="../../../../node_modules/express-web-components/express-app.html">
 <link rel="import" href="../../../../node_modules/express-web-components/express-middleware.html">
+<link rel="import" href="../../../../node_modules/express-web-components/express-config.html">
 
 <dom-module id="dokku-test-app">
     <template>
         <express-app port="5000">
+            <express-config callback="[[staticMW]]"></express-config>
             <express-middleware method="get" path="/" callback="[[handler]]"></express-middleware>
         </express-app>
     </template>
@@ -18,9 +20,15 @@
             }
 
             ready() {
+                const path = require('path');
+
+                this.staticMW = (app, express) => {
+                    express.static('client');
+                };
+
                 this.handler = (req, res) => {
                     //console.log('request received: ' + new Date());
-                    res.send('it works');
+                    res.sendFile(path.join(__dirname, '/../client/index.html'));
                 };
             }
         }

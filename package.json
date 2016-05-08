@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "xvfb-run electron node_modules/scram-engine/main.js app/server/index.html",
-    "start-dev": "electron node_modules/scram-engine/main.js app/server/index.html",
-    "start-dev-window": "electron node_modules/scram-engine/main.js app/server/index.html -d"
+    "dev": "electron node_modules/scram-engine/main.js app/server/index.html",
+    "dev-window": "electron node_modules/scram-engine/main.js app/server/index.html -d"
   },
   "license": "MIT",
   "engines": {
@@ -16,7 +16,7 @@
     "@polymer/polymer": "^1.2.5-npm-test.2",
     "electron-prebuilt": "^0.37.8",
     "express": "^4.13.4",
-    "express-web-components": "0.0.3",
+    "express-web-components": "^0.1.3",
     "scram-engine": "0.0.4"
   },
   "devDependencies": {}
