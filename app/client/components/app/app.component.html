@@ -1,8 +1,19 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/marked-element/marked-element.html">
 
 <dom-module id="client-app">
     <template>
-        <div>Client Dokku Example</div>
+        <iron-ajax id="ironAjax" url="[[apiEndpointUrl]]" method="get"></iron-ajax>
+
+        <div>This page was served up from a headless Electron instance managed by Dokku</div>
+        <br>
+        <div>Server running since: [[runningSince]]</div>
+        <br>
+        <div>Server HTML Source:</div>
+        <marked-element markdown="[[serverSource]]">
+            <div class="markdown-html"></div>
+        </marked-element>
     </template>
 
     <script>
@@ -12,7 +23,38 @@
             }
 
             ready() {
+                this.getRunningSince();
+            }
 
+            getRunningSince() {
+                const ironAjax = this.$.ironAjax;
+
+                this.apiEndpointUrl = 'http://localhost:5000/api/running-since';
+                // const handleResponse = (e) => {
+                //     this.runningSince = e.detail.response;
+                //     ironAjax.removeEventListener('response', handleResponse);
+                //     this.getSource();
+                // };
+                //
+                // ironAjax.addEventListener('response', handleResponse);
+                const ironRequest = ironAjax.generateRequest();
+                ironRequest.addEventListener('response', (e) => {
+                    console.log('hello');
+                });
+            }
+
+            getSource() {
+                const ironAjax = this.$.ironAjax;
+
+                this.apiEndpointUrl = 'http://localhost:5000/api/source-code';
+                const handleResponse = (e) => {
+                    console.log(e.detail.response);
+                    this.serverSource = e.detail.response;
+                    ironAjax.removeEventListener('response', handleResponse);
+                };
+
+                ironAjax.addEventListener('response', handleResponse);
+                ironAjax.generateRequest();
             }
         }
 
