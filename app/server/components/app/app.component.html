@@ -4,7 +4,7 @@
 <link rel="import" href="../../../../node_modules/express-web-components/express-middleware.html">
 <link rel="import" href="../../../../node_modules/express-web-components/express-config.html">
 
-<dom-module id="dokku-test-app">
+<dom-module id="server-app">
     <template>
         <express-app port="5000">
             <express-config callback="[[staticMW]]"></express-config>
@@ -15,7 +15,7 @@
     <script>
         class AppComponent {
             beforeReady() {
-                this.is = 'dokku-test-app';
+                this.is = 'server-app';
                 this.port = process.env.PORT || 5000;
             }
 
@@ -23,7 +23,7 @@
                 const path = require('path');
 
                 this.staticMW = (app, express) => {
-                    express.static('client');
+                    app.use(express.static('app/client'));
                 };
 
                 this.handler = (req, res) => {
