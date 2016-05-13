@@ -1,7 +1,7 @@
 {
   "name": "dokku-test",
   "version": "0.0.0",
-  "description": "",
+  "description": "Working example of Scram.js and Express Web Components running in a production server environment",
   "scripts": {
     "start": "xvfb-run electron node_modules/scram-engine/main.js app/server/index.html",
     "dev": "electron node_modules/scram-engine/main.js app/server/index.html",
