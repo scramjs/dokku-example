@@ -41,8 +41,7 @@
                 };
 
                 this.sourceCodeHandler = (req, res) => {
-                    res.setHeader('Content-Type', 'text/plain');
-                    res.send(this.innerHTML);
+                    res.sendFile(path.join(__dirname, '/../server/components/app/app.component.html'));
                 };
             }
         }

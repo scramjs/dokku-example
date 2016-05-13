@@ -1,19 +1,20 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/marked-element/marked-element.html">
 
 <dom-module id="client-app">
     <template>
-        <iron-ajax id="ironAjax" url="[[apiEndpointUrl]]" method="get"></iron-ajax>
+        <iron-ajax id="ironAjax1" url="http://localhost:5000/api/running-since" method="get" on-response="handleRunningSince"></iron-ajax>
+        <iron-ajax id="ironAjax2" url="http://localhost:5000/api/source-code" method="get" on-response="handleSourceCode" handle-as="text"></iron-ajax>
 
         <div>This page was served up from a headless Electron instance managed by Dokku</div>
         <br>
         <div>Server running since: [[runningSince]]</div>
         <br>
         <div>Server HTML Source:</div>
-        <marked-element markdown="[[serverSource]]">
-            <div class="markdown-html"></div>
-        </marked-element>
+        <!--TODO get syntax highlighting-->
+        <pre style="background: rgba(0, 0, 0, .1); padding: 25px">
+            [[serverSource]]
+        </pre>
     </template>
 
     <script>
@@ -23,38 +24,17 @@
             }
 
             ready() {
-                this.getRunningSince();
+                this.$.ironAjax1.generateRequest();
+                this.$.ironAjax2.generateRequest();
             }
 
-            getRunningSince() {
-                const ironAjax = this.$.ironAjax;
-
-                this.apiEndpointUrl = 'http://localhost:5000/api/running-since';
-                // const handleResponse = (e) => {
-                //     this.runningSince = e.detail.response;
-                //     ironAjax.removeEventListener('response', handleResponse);
-                //     this.getSource();
-                // };
-                //
-                // ironAjax.addEventListener('response', handleResponse);
-                const ironRequest = ironAjax.generateRequest();
-                ironRequest.addEventListener('response', (e) => {
-                    console.log('hello');
-                });
+            handleRunningSince(e) {
+                this.runningSince = e.detail.response;
             }
 
-            getSource() {
-                const ironAjax = this.$.ironAjax;
-
-                this.apiEndpointUrl = 'http://localhost:5000/api/source-code';
-                const handleResponse = (e) => {
-                    console.log(e.detail.response);
-                    this.serverSource = e.detail.response;
-                    ironAjax.removeEventListener('response', handleResponse);
-                };
-
-                ironAjax.addEventListener('response', handleResponse);
-                ironAjax.generateRequest();
+            handleSourceCode(e) {
+                console.log(e.detail.response);
+                this.serverSource = e.detail.response;
             }
         }
 
