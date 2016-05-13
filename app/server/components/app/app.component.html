@@ -1,5 +1,5 @@
-<link rel="import" href="../../../../node_modules/@polymer/polymer/polymer.html">
 
+<link rel="import" href="../../../../node_modules/@polymer/polymer/polymer.html">
 <link rel="import" href="../../../../node_modules/express-web-components/express-app.html">
 <link rel="import" href="../../../../node_modules/express-web-components/express-middleware.html">
 <link rel="import" href="../../../../node_modules/express-web-components/express-config.html">
@@ -13,6 +13,7 @@
             <express-router path="/api">
                 <express-middleware method="get" path="/running-since" callback="[[runningSinceHandler]]"></express-middleware>
                 <express-middleware method="get" path="/source-code" callback="[[sourceCodeHandler]]"></express-middleware>
+                <express-middleware method="get" path="/cat-photo" callback="[[catHandler]]"></express-middleware>
             </express-router>
         </express-app>
     </template>
@@ -42,6 +43,10 @@
 
                 this.sourceCodeHandler = (req, res) => {
                     res.sendFile(path.join(__dirname, '/../server/components/app/app.component.html'));
+                };
+
+                this.catHandler = (req, res) => {
+                    res.sendFile(path.join(__dirname, '/../server/cat-hunting.jpg'));
                 };
             }
         }

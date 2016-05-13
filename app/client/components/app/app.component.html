@@ -5,14 +5,23 @@
     <template>
         <iron-ajax id="ironAjax1" url="http://localhost:5000/api/running-since" method="get" on-response="handleRunningSince"></iron-ajax>
         <iron-ajax id="ironAjax2" url="http://localhost:5000/api/source-code" method="get" on-response="handleSourceCode" handle-as="text"></iron-ajax>
+        <iron-ajax id="ironAjaxCat" url="http://localhost:5000/api/cat-photo" method="get" on-response="handleCat" handle-as="blob"></iron-ajax>
 
-        <div>This page was served up from a headless Electron instance managed by Dokku</div>
+        <div>This page was served up from a headless Electron instance managed by Dokku. The server is written with <a href="https://github.com/scramjs/express-web-components" target="_blank">Express Web Components</a>.</div>
         <br>
         <div>Server running since: [[runningSince]]</div>
         <br>
+        <div>Download and display cat photo:</div>
+        <button on-click="getCat">Get cat</button>
+        <button on-click="hideCat">Remove cat</button>
+        <img src="[[catDataUrl]]">
+        <br>
+        <br>
         <div>Server HTML Source:</div>
+        <button on-click="getSource">Get source</button>
+        <button on-click="removeSource">Remove source</button>
         <!--TODO get syntax highlighting-->
-        <pre style="background: rgba(0, 0, 0, .1); padding: 25px">
+        <pre id="sourcePre" style="background: rgba(0, 0, 0, .1); padding: 25px" hidden="[[hideSourcePre]]">
             [[serverSource]]
         </pre>
     </template>
@@ -24,8 +33,24 @@
             }
 
             ready() {
+                this.hideSourcePre = true;
                 this.$.ironAjax1.generateRequest();
+            }
+
+            getSource() {
                 this.$.ironAjax2.generateRequest();
+            }
+
+            removeSource() {
+                this.hideSourcePre = true;
+            }
+
+            getCat() {
+                this.$.ironAjaxCat.generateRequest();
+            }
+
+            hideCat() {
+                this.catDataUrl = '';
             }
 
             handleRunningSince(e) {
@@ -33,8 +58,13 @@
             }
 
             handleSourceCode(e) {
-                console.log(e.detail.response);
+                this.hideSourcePre = false;
                 this.serverSource = e.detail.response;
+            }
+
+            handleCat(e) {
+                const catBlob = e.detail.response;
+                this.catDataUrl = window.URL.createObjectURL(catBlob);
             }
         }
 
