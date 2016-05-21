@@ -1,0 +1,90 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../../../../bower_components/express-web-components/express-app.html">
+<link rel="import" href="../../../../../bower_components/express-web-components/express-middleware.html">
+<link rel="import" href="../../../../../bower_components/express-web-components/express-router.html">
+<link rel="import" href="../../../../../bower_components/express-web-components/express-config.html">
+
+<link rel="import" href="../monkey/example-monkey.html">
+<link rel="import" href="../lion/example-lion.html">
+<link rel="import" href="../bear/example-bear.html">
+
+<dom-module id="example-app">
+    <template>
+        <express-app port="[[port]]" callback="[[appListen]]">
+            <express-middleware method="get" path="/" callback="[[index]]"></express-middleware>
+
+            <express-config callback="[[setTitle]]"></express-config>
+
+            <express-router path="/api">
+                <express-router path="/monkey">
+                    <example-monkey></example-monkey>
+                </express-router>
+
+                <express-router path="/lion">
+                    <example-lion></example-lion>
+                </express-router>
+
+                <express-router path="/bear">
+                    <example-bear></example-bear>
+                </express-router>
+            </express-router>
+
+            <express-router path="/1">
+                <express-router path="/2">
+                    <express-router path="/3">
+                        <express-router path="/4">
+                            <express-router path="/5">
+                                <express-router path="/6">
+                                    <express-middleware method="get" path="/7" callback="[[seven]]"></express-middleware>
+                                </express-router>
+                            </express-router>
+                        </express-router>
+                    </express-router>
+                </express-router>
+            </express-router>
+
+            <express-middleware callback="[[notFoundHandler]]"></express-middleware>
+        </express-app>
+    </template>
+
+    <script>
+        class ExampleAppComponent {
+            beforeRegister() {
+                this.is = 'example-app';
+            }
+
+            ready() {
+                this.port = process.env.PORT || 5000;
+
+                this.appListen = () => {
+                    console.log('the app is listening on port: ' + this.port);
+                };
+
+                this.initHandlers();
+            }
+
+            initHandlers() {
+                this.index = (req, res) => {
+                    res.send('Hola mundo!');
+                };
+
+                this.seven = (req, res) => {
+                    res.send('Nice job, 7 levels deep');
+                };
+
+                this.notFound = (req, res) => {
+                    res.send('404 not found');
+                };
+
+                this.setTitle = (app, express) => {
+                    app.set('title', 'Animal API');
+                    express.static //available if you need it
+                    express.Router //create routes imperatively if you want to
+                };
+            }
+        }
+
+        Polymer(ExampleAppComponent);
+    </script>
+</dom-module>

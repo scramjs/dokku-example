@@ -1,0 +1,34 @@
+{
+  "name": "express-web-components",
+  "version": "0.1.6",
+  "description": "Declaratively build ExpressJS applications with web components.",
+  "main": "",
+  "authors": [
+    "Jordan Last <jordan.michael.last@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web-components"
+  ],
+  "homepage": "https://github.com/scramjs/express-web-components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  },
+  "_release": "0.1.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.6",
+    "commit": "3497efd09c85760866673ad7b67ed4801bbd09e6"
+  },
+  "_source": "https://github.com/scramjs/express-web-components.git",
+  "_target": "^0.1.6",
+  "_originalSource": "express-web-components",
+  "_direct": true
+}
