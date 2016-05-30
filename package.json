@@ -1,6 +1,6 @@
 {
   "name": "dokku-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Working example of Scram.js and Express Web Components running in a production server environment",
   "scripts": {
     "start": "npm install -g bower && bower install && xvfb-run electron node_modules/scram-engine/main.js app/server/index.html",
@@ -15,7 +15,7 @@
   "dependencies": {
     "electron-prebuilt": "^1.2.0",
     "express": "^4.13.4",
-    "scram-engine": "^0.1.7"
+    "scram-engine": "^0.2.2"
   },
   "devDependencies": {}
 }
