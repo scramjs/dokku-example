@@ -17,6 +17,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "iron-ajax": "PolymerElements/iron-ajax#^1.2.0",
-    "express-web-components": "^0.1.9"
+    "express-web-components": "^0.1.11"
   }
 }
