@@ -19,6 +19,8 @@
     </template>
 
     <script>
+        const path = require('path');
+
         class AppComponent {
             beforeReady() {
                 this.is = 'server-app';
@@ -26,8 +28,6 @@
             }
 
             ready() {
-                const path = require('path');
-
                 this.staticMW = (app, express) => {
                     app.use(express.static('app/client'));
                 };

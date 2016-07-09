@@ -3,9 +3,9 @@
 
 <dom-module id="client-app">
     <template>
-        <iron-ajax id="ironAjax1" url="http://scramjs.org/api/running-since" method="get" on-response="handleRunningSince"></iron-ajax>
-        <iron-ajax id="ironAjax2" url="http://scramjs.org/api/source-code" method="get" on-response="handleSourceCode" handle-as="text"></iron-ajax>
-        <iron-ajax id="ironAjaxCat" url="http://scramjs.org/api/cat-photo" method="get" on-response="handleCat" handle-as="blob"></iron-ajax>
+        <iron-ajax id="ironAjax1" url="[[domain]]api/running-since" method="get" on-response="handleRunningSince"></iron-ajax>
+        <iron-ajax id="ironAjax2" url="[[domain]]api/source-code" method="get" on-response="handleSourceCode" handle-as="text"></iron-ajax>
+        <iron-ajax id="ironAjaxCat" url="[[domain]]api/cat-photo" method="get" on-response="handleCat" handle-as="blob"></iron-ajax>
 
         <div>This page was served up from a headless Electron instance managed by Dokku. The server is written with <a href="https://github.com/scramjs/express-web-components" target="_blank">Express Web Components</a>.</div>
         <br>
@@ -35,6 +35,16 @@
             ready() {
                 this.hideSourcePre = true;
                 this.$.ironAjax1.generateRequest();
+                this.domain = getDomain();
+
+                function getDomain() {
+                    if (window.location.hostname === 'localhost') {
+                        return window.location.href;
+                    }
+                    else {
+                        return 'http://scramjs.org/';
+                    }
+                }
             }
 
             getSource() {
