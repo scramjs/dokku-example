@@ -7,50 +7,18 @@
 
 <dom-module id="server-app">
     <template>
-        <express-app port="5000">
+        <express-app port="[[port]]">
             <express-config callback="[[staticMW]]"></express-config>
             <express-middleware method="get" path="/" callback="[[indexHandler]]"></express-middleware>
             <express-router path="/api">
                 <express-middleware method="get" path="/running-since" callback="[[runningSinceHandler]]"></express-middleware>
                 <express-middleware method="get" path="/source-code" callback="[[sourceCodeHandler]]"></express-middleware>
                 <express-middleware method="get" path="/cat-photo" callback="[[catHandler]]"></express-middleware>
+                <express-middleware method="post" path="/cat-name" callback="[[catNameHandler]]"></express-middleware>
+                <express-middleware method="get" path="/cats" callback="[[catsHandler]]"></express-middleware>
             </express-router>
         </express-app>
     </template>
 
-    <script>
-        const path = require('path');
-
-        class AppComponent {
-            beforeReady() {
-                this.is = 'server-app';
-                this.port = process.env.PORT || 5000;
-            }
-
-            ready() {
-                this.staticMW = (app, express) => {
-                    app.use(express.static('app/client'));
-                };
-
-                this.indexHandler = (req, res) => {
-                    res.sendFile(path.join(__dirname, '/../client/index.html'));
-                };
-
-                const runningSince = new Date();
-                this.runningSinceHandler = (req, res) => {
-                    res.send(runningSince);
-                };
-
-                this.sourceCodeHandler = (req, res) => {
-                    res.sendFile(path.join(__dirname, '/../server/components/app/app.component.html'));
-                };
-
-                this.catHandler = (req, res) => {
-                    res.sendFile(path.join(__dirname, '/../server/cat-hunting.jpg'));
-                };
-            }
-        }
-
-        Polymer(AppComponent);
-    </script>
+    <script>System.import('components/app/app.component.ts');</script>
 </dom-module>
