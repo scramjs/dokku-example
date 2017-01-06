@@ -1,4 +1,4 @@
-import {UtilitiesService} from '../../services/utilities.service.ts';
+import {UtilitiesService} from '../../services/utilities.service';
 const path = require('path');
 const localforage = require('localforage');
 

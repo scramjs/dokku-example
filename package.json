@@ -3,21 +3,19 @@
   "version": "0.0.4",
   "description": "Working example of Scram.js and Express Web Components running in a production server environment",
   "scripts": {
-    "start": "npm install -g bower && bower install && xvfb-run electron node_modules/scram-engine/main.js app/server/index.html",
-    "dev": "electron node_modules/scram-engine/main.js app/server/index.html",
-    "dev-window": "electron node_modules/scram-engine/main.js app/server/index.html -d",
-    "dev-file": "electron node_modules/scram-engine/main.js app/server/index.html -d -f"
+    "start": "npm install -g bower && bower install && xvfb-run electron node_modules/scram-engine/main.js --entry-file app/server/index.html",
+    "dev": "electron node_modules/scram-engine/main.js --entry-file app/server/index.html",
+    "dev-window": "electron node_modules/scram-engine/main.js --entry-file app/server/index.html --window",
+    "dev-file": "electron node_modules/scram-engine/main.js --file-system --entry-file app/server/index.html --window"
   },
   "license": "MIT",
   "engines": {
     "node": "6.0.0"
   },
   "dependencies": {
-    "electron-prebuilt": "^1.3.5",
-    "es-no-build": "^0.1.0",
     "express": "^4.13.4",
     "localforage": "^1.4.2",
-    "scram-engine": "^0.3.2"
+    "scram-engine": "^0.4.1"
   },
   "devDependencies": {}
 }
