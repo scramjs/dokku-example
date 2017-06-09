@@ -32,14 +32,14 @@
     </template>
 
     <script>
-        class ClientAppComponent {
-            beforeReady() {
-                this.is = 'client-app';
-            }
+        class ClientApp extends Polymer.Element {
+            static get is() { return 'client-app'; }
 
-            ready() {
+            connectedCallback() {
+                super.connectedCallback();
+
                 this.hideSourcePre = true;
-                this.$.ironAjax1.generateRequest();
+                this.shadowRoot.querySelector('#ironAjax1').generateRequest();
                 this.domain = getDomain();
 
                 function getDomain() {
@@ -88,6 +88,6 @@
             }
         }
 
-        Polymer(ClientAppComponent);
+        window.customElements.define(ClientApp.is, ClientApp);
     </script>
 </dom-module>
