@@ -6,7 +6,6 @@
         <iron-ajax id="ironAjax1" url="[[domain]]api/running-since" method="get" on-response="handleRunningSince"></iron-ajax>
         <iron-ajax id="ironAjax2" url="[[domain]]api/source-code" method="get" on-response="handleSourceCode" handle-as="text"></iron-ajax>
         <iron-ajax id="ironAjaxCat" url="[[domain]]api/cat-photo" method="get" on-response="handleCat" handle-as="blob"></iron-ajax>
-        <iron-ajax id="ironAjaxCats" url="[[domain]]api/cats" method="get" on-response="handleCats" handle-as="json" auto></iron-ajax>
 
         <div>This page was served up from a headless Electron instance managed by Dokku. The server is written with <a href="https://github.com/scramjs/express-web-components" target="_blank">Express Web Components</a>.</div>
         <br>
@@ -25,10 +24,6 @@
         <pre id="sourcePre" style="background: rgba(0, 0, 0, .1); padding: 25px" hidden="[[hideSourcePre]]">
             [[serverSource]]
         </pre>
-
-        <template is="dom-repeat" items="[[catNames]]">
-            <div>[[item]]</div>
-        </template>
     </template>
 
     <script>
@@ -53,7 +48,7 @@
             }
 
             getSource() {
-                this.$.ironAjax2.generateRequest();
+                this.shadowRoot.querySelector('#ironAjax2').generateRequest();
             }
 
             removeSource() {
@@ -61,7 +56,7 @@
             }
 
             getCat() {
-                this.$.ironAjaxCat.generateRequest();
+                this.shadowRoot.querySelector('#ironAjaxCat').generateRequest();
             }
 
             hideCat() {
@@ -80,11 +75,6 @@
             handleCat(e) {
                 const catBlob = e.detail.response;
                 this.catDataUrl = window.URL.createObjectURL(catBlob);
-            }
-
-            handleCats(e) {
-                this.catNames = e.detail.response.catNames;
-                console.log(e.detail.response.catNames);
             }
         }
 
